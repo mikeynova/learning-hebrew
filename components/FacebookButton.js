@@ -9,7 +9,7 @@ export default FaceBookSignInButton = (props) => (
     onPress={() => props.login()}>
     <View style={styles.buttonContainer}>
       <Icon name={iconName} color='white' size={25} />
-      <Text style={styles.btnText}>Sign In with Facebook</Text>
+      <Text style={styles.btnText}>Continue with Facebook</Text>
     </View>
   </TouchableHighlight>
 )
