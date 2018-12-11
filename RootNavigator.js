@@ -1,11 +1,23 @@
 import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation'
 
 import AuthLoadingScreen from './screens/AuthLoadingScreen'
-import Home from './screens/Home'
-import Login from './screens/Login'
+import SignIn from './screens/SignIn'
+import SignUp from './screens/SignUp'
+import LessonGroups from './screens/LessonGroups'
+import Lessons from './screens/Lessons'
 
-const AppStack = createStackNavigator({ Home })
-const AuthStack = createStackNavigator({ SignIn: Login })
+const AppStack = createStackNavigator({
+  LessonGroups,
+  Lessons
+}, {
+  initialRouteName: 'LessonGroups'
+})
+const AuthStack = createStackNavigator({
+  SignIn,
+  SignUp
+}, {
+  initialRouteName: 'SignIn'
+})
 
 export default createAppContainer(createSwitchNavigator(
   {
