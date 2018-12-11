@@ -36,46 +36,18 @@ const Form = props => (
     }) => {
       return (
         <View>
-          <MaterialTextInput
-            touched={touched}
-            handleBlur={handleBlur}
-            error={errors}
-            handleChange={handleChange}
-            value={values.email}
-            label="Email"
-            name="email"
-            type="email"
-          />
-          <MaterialTextInput
-            touched={touched}
-            handleBlur={handleBlur}
-            error={errors}
-            handleChange={handleChange}
-            value={values.password}
-            label="Password"
-            name="password"
-            type="password"
-          />
-          <MaterialTextInput
-            touched={touched}
-            handleBlur={handleBlur}
-            error={errors}
-            handleChange={handleChange}
-            value={values.firstName}
-            label="First Name"
-            name="firstName"
-            type="name"
-          />
-          <MaterialTextInput
-            touched={touched}
-            handleBlur={handleBlur}
-            error={errors}
-            handleChange={handleChange}
-            value={values.lastName}
-            label="Last Name"
-            name="lastName"
-            type="name"
-          />
+          {props.inputs.map((input, i) => (
+            <MaterialTextInput
+              key={i}
+              touched={touched}
+              handleBlur={handleBlur}
+              error={errors}
+              handleChange={handleChange}
+              label={input.label}
+              name={input.name}
+              type={input.type}
+            />
+          ))}
           <Button onPress={handleSubmit} title="SUBMIT" />
         </View>
       )}}
