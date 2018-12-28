@@ -1,5 +1,4 @@
 {
-  "Auth": {
-    "FB": "APP_ID"
-  }
+  "fbKey": "FB_KEY",
+  "endpoint": "API_ENDPOINT"
 }

@@ -3,14 +3,16 @@ import { createSwitchNavigator, createStackNavigator, createAppContainer } from 
 import AuthLoadingScreen from './screens/AuthLoadingScreen'
 import SignIn from './screens/SignIn'
 import SignUp from './screens/SignUp'
-import LessonGroups from './screens/LessonGroups'
+import Groups from './screens/Groups'
 import Lessons from './screens/Lessons'
+import Lesson from './screens/Lesson'
 
 const AppStack = createStackNavigator({
-  LessonGroups,
-  Lessons
+  Groups,
+  Lessons,
+  Lesson
 }, {
-  initialRouteName: 'LessonGroups'
+  initialRouteName: 'Groups'
 })
 const AuthStack = createStackNavigator({
   SignIn,

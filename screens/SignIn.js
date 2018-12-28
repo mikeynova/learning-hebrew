@@ -1,10 +1,23 @@
 import React, { PureComponent } from 'react'
-import { View, Text, Alert, AsyncStorage, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, Alert, AsyncStorage, StyleSheet, TouchableWithoutFeedback, Button } from 'react-native'
+import { Query, graphql, Mutation, compose } from 'react-apollo'
+import gql from "graphql-tag"
+import axios from 'axios'
+import { print } from 'graphql'
+
 import config from '../lib/config'
 import FacebookButton from '../components/FacebookButton'
 import Form from '../components/Form'
 
-export default class SignIn extends PureComponent {
+const GET_FEED = gql`
+  {
+    feed {
+      id
+    }
+  }
+`;
+
+class SignIn extends PureComponent {
   render () {
     return (
       <View style={styles.container}>
@@ -42,16 +55,21 @@ export default class SignIn extends PureComponent {
         expires,
         permissions,
         declinedPermissions,
-      } = await Expo.Facebook.logInWithReadPermissionsAsync(config.Auth.FB, {
+      } = await Expo.Facebook.logInWithReadPermissionsAsync(config.fbKey, {
         permissions: ['public_profile'],
       });
       if (type === 'success') {
-        // Get the user's name using Facebook's Graph API
-        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-        Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
-        await AsyncStorage.setItem('userToken', token);
-        // console.log('this.props.navigation', this.props.navigation)
-        this.props.navigation.navigate('App');
+        const request = await fetch(`https://graph.facebook.com/me?access_token=${token}`)
+        // Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+        const response = await request.json()
+
+        this.props
+          .fbAuth(response.id, response.name)
+          .then(async ({ data }) => {
+            await AsyncStorage.setItem('userToken', data.fbAuth.token)
+            this.props.navigation.navigate('App')
+          })
+          .catch(err => console.log(err))
       } else {
         // type === 'cancel'
       }
@@ -68,3 +86,35 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
+
+const ListingsQueuy = gql`
+  query {
+    feed {
+      id
+      url
+      description
+    }
+  }
+`
+
+const FacebookSignin = gql`
+  mutation FacebookSignin($facebookId: String!, $name: String!) {
+    fbAuth(facebookId: $facebookId, name: $name) {
+      user {
+        id
+      }
+      token
+    }
+  }
+`
+
+const SignInWrapper = compose(
+  graphql(ListingsQueuy, { name: 'listingsQuery' }),
+  graphql(FacebookSignin, {
+    props: ({ mutate }) => ({
+      fbAuth: (facebookId, name) => mutate({ variables: { facebookId, name } })
+    })
+  })
+)(SignIn)
+
+export default SignInWrapper
