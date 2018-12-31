@@ -19,7 +19,6 @@ class Lesson extends PureComponent {
         {({ loading, error, data }) => {
           if (loading) return <Text>Loading</Text>
           if (error) return <Text>{`Error!: ${error}`}</Text>
-          console.log(data)
           return (
             <Text>Hey</Text>
           )
