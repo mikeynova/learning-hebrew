@@ -11,13 +11,14 @@ export default class MaterialTextInput extends PureComponent {
   }
 
   render() {
-    const { error, touched, handleChange, name, ...props } = this.props
+    const { error, touched, handleChange, name, type, ...props } = this.props
     const displayError = !!error[name] && touched[name]
     const errorColor = 'rgb(239, 51, 64)'
     return (
       <View>
         <TextField
           ref={input => (this.input = input)}
+          secureTextEntry={type === 'password'}
           labelHeight={12}
           baseColor={displayError ? errorColor : '#1976D2'}
           tintColor="#2196F3"
