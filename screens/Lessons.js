@@ -10,7 +10,7 @@ export default class Lessons extends PureComponent {
     )
   })
   handlePress = lesson => {
-    this.props.navigation.navigate('Lesson', { lesson })
+    this.props.navigation.navigate('Lesson', { lesson, pageNumber: 1 })
   }
   render () {
     const { group } = this.props.navigation.state.params
