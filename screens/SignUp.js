@@ -15,7 +15,7 @@ export default class SignUp extends PureComponent {
           inputs={[
             { name: 'email', label: 'Email', type: 'email'},
             { name: 'password', label: 'Password', type: 'password'},
-            { name: 'fistName', label: 'First Name', type: 'name'},
+            { name: 'firstName', label: 'First Name', type: 'name'},
             { name: 'lastName', label: 'Last Name', type: 'name'}
           ]}
         />
