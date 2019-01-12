@@ -7,7 +7,7 @@ export default class Group extends PureComponent {
   render () {
     const { groups, handlePress } = this.props
     return (
-      <View style={{ flex: 1,  flexDirection: 'row', flexWrap: 'wrap', alignContent: 'center' }}>
+      <View style={styles.container}>
         {groups.map((group, i) => (
           <TouchableOpacity
             key={i}
@@ -24,11 +24,15 @@ export default class Group extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
   tile: {
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: '#bbb',
-    height: width / 2,
+    height: width / 1.5,
     width: width / 2,
     justifyContent: 'center',
     alignItems: 'center',

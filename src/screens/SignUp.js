@@ -1,23 +1,13 @@
 import React, { PureComponent } from 'react'
-import { View, Text, Alert, AsyncStorage, StyleSheet, TouchableWithoutFeedback, Button } from 'react-native'
-import { Query, graphql, Mutation, compose } from 'react-apollo'
-import gql from "graphql-tag"
-import axios from 'axios'
-import { print } from 'graphql'
-
+import { View, Text, Alert, AsyncStorage, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import config from '../lib/config'
 import FacebookButton from '../components/FacebookButton'
 import Form from '../components/Form'
+import { Query, graphql, Mutation, compose } from 'react-apollo'
+import gql from "graphql-tag"
+import SignUpButton from '../components/SignUpButton'
 
-const GET_FEED = gql`
-  {
-    feed {
-      id
-    }
-  }
-`;
-
-class SignIn extends PureComponent {
+class SignUp extends PureComponent {
   render () {
     return (
       <View style={styles.container}>
@@ -25,24 +15,14 @@ class SignIn extends PureComponent {
           Bible Hebrew
         </Text>
         <Form
+          auth={this.props.signup}
           inputs={[
             { name: 'email', label: 'Email', type: 'email'},
             { name: 'password', label: 'Password', type: 'password'},
+            { name: 'name', label: 'Name', type: 'name'}
           ]}
         />
         <FacebookButton login={this._logIn}/>
-        <View style={{ flexDirection: 'row' }}>
-          <Text>
-            Don't have an account?
-          </Text>
-          <TouchableWithoutFeedback
-            onPress={() => this.props.navigation.navigate('SignUp')}
-          >
-            <Text>
-              Sign Up
-            </Text>
-          </TouchableWithoutFeedback>
-        </View>
       </View>
     )
   }
@@ -60,9 +40,7 @@ class SignIn extends PureComponent {
       });
       if (type === 'success') {
         const request = await fetch(`https://graph.facebook.com/me?access_token=${token}`)
-        // Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
         const response = await request.json()
-
         this.props
           .fbAuth(response.id, response.name)
           .then(async ({ data }) => {
@@ -71,7 +49,7 @@ class SignIn extends PureComponent {
           })
           .catch(err => console.log(err))
       } else {
-        // type === 'cancel'
+        Alert.alert('Unable to sign up using Facebook')
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`);
@@ -79,20 +57,13 @@ class SignIn extends PureComponent {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-})
-
-const ListingsQueuy = gql`
-  query {
-    feed {
-      id
-      url
-      description
+const SignUpQuery = gql`
+  mutation SignUp($name: String, $email: String!, $password: String!) {
+    signup(name: $name, email: $email, password: $password) {
+      user {
+        id
+      }
+      token
     }
   }
 `
@@ -108,13 +79,25 @@ const FacebookSignin = gql`
   }
 `
 
-const SignInWrapper = compose(
-  graphql(ListingsQueuy, { name: 'listingsQuery' }),
+const SignUpWrapper = compose(
+  graphql(SignUpQuery, {
+    props: ({ mutate }) => ({
+      signup: (email, password, name) => mutate({ variables: { email, password, name } })
+    })
+  }),
   graphql(FacebookSignin, {
     props: ({ mutate }) => ({
       fbAuth: (facebookId, name) => mutate({ variables: { facebookId, name } })
     })
   })
-)(SignIn)
+)(SignUp)
 
-export default SignInWrapper
+export default SignUpWrapper
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})

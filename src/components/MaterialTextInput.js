@@ -5,11 +5,6 @@ import { TextField } from 'react-native-material-textfield'
 const { width } = Dimensions.get('screen')
 
 export default class MaterialTextInput extends PureComponent {
-  // Your custom input needs a focus function for `withNextInputAutoFocus` to work
-  focus() {
-    this.input.focus()
-  }
-
   render() {
     const { error, touched, handleChange, name, type, ...props } = this.props
     const displayError = !!error[name] && touched[name]
@@ -17,7 +12,6 @@ export default class MaterialTextInput extends PureComponent {
     return (
       <View>
         <TextField
-          ref={input => (this.input = input)}
           secureTextEntry={type === 'password'}
           labelHeight={12}
           baseColor={displayError ? errorColor : '#1976D2'}

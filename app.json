@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./src/App.js",
     "name": "LearningHebrew",
     "slug": "LearningHebrew",
     "privacy": "public",

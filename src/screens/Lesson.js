@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text, Button, AsyncStorage, StyleSheet, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native'
+import { View, Text, Button, AsyncStorage, StyleSheet, TouchableOpacity, Dimensions, SafeAreaView, Image } from 'react-native'
 import { Query } from 'react-apollo'
 import { Audio } from 'expo'
 import { Feather } from '@expo/vector-icons'
@@ -67,7 +67,13 @@ class Lesson extends PureComponent {
     return (
       <Query query={PageQuery} variables={{ id: lesson.id, pageNumber }}>
         {({ loading, error, data }) => {
-          if (loading) return <Text>Loading</Text>
+          if (loading) return (
+            <View style={styles.loading}>
+              <Image
+                style={{ height: 200, width: 200 }} 
+                source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/585d0331234507.564a1d239ac5e.gif' }} />
+            </View>
+          )
           if (error) return <Text>No pages for this lesson</Text>
           const parsed = JSON.parse(data.page.data)
           if (parsed.snippets) {
@@ -122,6 +128,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row'
+  },
+  loading: {
+    alignContent: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    alignItems: 'center'
   }
 })
 

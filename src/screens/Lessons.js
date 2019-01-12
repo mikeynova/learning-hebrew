@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native'
+import { Feather } from '@expo/vector-icons'
 
 export default class Lessons extends PureComponent {
   static navigationOptions = ({ navigation }) => ({
@@ -30,7 +31,10 @@ export default class Lessons extends PureComponent {
               style={[styles.lesson, border]}
               onPress={() => this.handlePress(lesson)}
             >
-              <View style={{ height: 50, width: 50, backgroundColor: 'red', margin: 15 }}/>
+              <View style={styles.iconContainer}>
+                <Feather name="check" style={styles.icon}
+                />
+              </View>
               <Text style={styles.text}>{lesson.name}</Text>
             </TouchableOpacity>
           )
@@ -54,5 +58,15 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18
+  },
+  iconContainer: {
+    height: 50,
+    width: 50,
+    margin: 15,
+    justifyContent: 'center'
+  },
+  icon: {
+    fontSize: 34,
+    textAlign: 'center'
   }
 })
