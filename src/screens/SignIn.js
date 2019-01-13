@@ -9,15 +9,19 @@ import FacebookButton from '../components/FacebookButton'
 import Form from '../components/Form'
 
 class SignIn extends PureComponent {
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: (
+      <View style={styles.headerContainer}>
+        <Text>Bible Hebrew</Text>
+      </View>
+    )
+  })
   handlePress = () => {
     this.props.navigation.navigate('SignUp')
   }
   render () {
     return (
       <View style={styles.container}>
-        <Text>
-          Bible Hebrew
-        </Text>
         <Form
           auth={this.props.login}
           inputs={[
@@ -73,6 +77,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  headerContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row'
   }
 })
 

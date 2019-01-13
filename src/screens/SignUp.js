@@ -8,12 +8,16 @@ import gql from "graphql-tag"
 import SignUpButton from '../components/SignUpButton'
 
 class SignUp extends PureComponent {
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: (
+      <View style={styles.headerContainer}>
+        <Text>Bible Hebrew</Text>
+      </View>
+    )
+  })
   render () {
     return (
       <View style={styles.container}>
-        <Text>
-          Bible Hebrew
-        </Text>
         <Form
           auth={this.props.signup}
           inputs={[
@@ -99,5 +103,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  headerContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row'
   }
 })
