@@ -8,7 +8,7 @@ export default class Lessons extends PureComponent {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: (
       <View>
-        <Text>{navigation.state.params.group.name}</Text>
+        <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{navigation.state.params.group.name}</Text>
       </View>
     ),
     headerStyle: {

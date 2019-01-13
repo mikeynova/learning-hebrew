@@ -10,7 +10,7 @@ class Lesson extends PureComponent {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: (
       <View style={styles.headerContainer}>
-        <Text>{navigation.state.params.lesson.name}</Text>
+        <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{navigation.state.params.lesson.name}</Text>
       </View>
     ),
     headerStyle: {
@@ -108,7 +108,7 @@ class Lesson extends PureComponent {
                   })}
                 <SafeAreaView style={{ position: 'absolute', bottom: 0, }}>
                   <TouchableOpacity style={{ backgroundColor: 'red', width, height: 44, justifyContent: 'center' }} onPress={() => this.handleEndLesson()}>
-                    <Text style={{ textAlign: 'center', color: '#fff' }}>Finish Lesson</Text>
+                    <Text style={{ textAlign: 'center', color: '#fff', fontSize: 20 }}>Finish Lesson</Text>
                   </TouchableOpacity>
                 </SafeAreaView>
               </View>
@@ -121,7 +121,7 @@ class Lesson extends PureComponent {
               </View>
               <SafeAreaView style={{ position: 'absolute', bottom: 0, }}>
                 <TouchableOpacity style={{  backgroundColor: 'red', width, height: 44, justifyContent: 'center' }} onPress={() => this.handlePress(lesson, pageNumber)}>
-                  <Text style={{ textAlign: 'center', color: '#fff' }}>Continue</Text>
+                  <Text style={{ textAlign: 'center', color: '#fff', fontSize: 20 }}>Continue</Text>
                 </TouchableOpacity>
               </SafeAreaView>
             </View>

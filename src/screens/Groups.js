@@ -27,12 +27,6 @@ class Groups extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row'
-  },
   loading: {
     alignContent: 'center',
     justifyContent: 'center',
