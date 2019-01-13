@@ -12,7 +12,10 @@ class Lesson extends PureComponent {
       <View style={styles.headerContainer}>
         <Text>{navigation.state.params.lesson.name}</Text>
       </View>
-    )
+    ),
+    headerStyle: {
+      backgroundColor: '#f2f2f2'
+    }
   })
   constructor (props) {
     super(props)
@@ -90,14 +93,14 @@ class Lesson extends PureComponent {
                   {snippets.map((snippet, i) => {
                     return (
                       <View key={i} style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', margin: 15 }}>
-                        <Text>{snippet.english}</Text>
+                        <Text style={{ fontSize: 28 }}>{snippet.english}</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                           <TouchableOpacity style={{ marginRight: 5 }} onPress={() => this.handlePlay()}>
-                            <Feather  name='play'  />
+                            <Feather  name='play' style={{ fontSize: 30 }}  />
                           </TouchableOpacity>
                           <View style={{ flexDirection: 'column' }}>
-                            <Text style={{ fontSize: 18 }}>{snippet.hebrew}</Text>
-                            <Text style={{ fontSize: 10 }}>{snippet.phoenetics}</Text>
+                            <Text style={{ fontSize: 28 }}>{snippet.hebrew}</Text>
+                            <Text style={{ fontSize: 18 }}>{snippet.phoenetics}</Text>
                           </View>
                         </View>
                       </View>
@@ -114,7 +117,7 @@ class Lesson extends PureComponent {
           return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <View >
-                <Text>{parsed.english || parsed.hebrew}</Text> 
+                <Text style={{ fontSize: 28 }}>{parsed.english || parsed.hebrew}</Text> 
               </View>
               <SafeAreaView style={{ position: 'absolute', bottom: 0, }}>
                 <TouchableOpacity style={{  backgroundColor: 'red', width, height: 44, justifyContent: 'center' }} onPress={() => this.handlePress(lesson, pageNumber)}>

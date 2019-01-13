@@ -10,7 +10,10 @@ export default class Lessons extends PureComponent {
       <View>
         <Text>{navigation.state.params.group.name}</Text>
       </View>
-    )
+    ),
+    headerStyle: {
+      backgroundColor: '#f2f2f2'
+    }
   })
   constructor(props) {
     super(props)

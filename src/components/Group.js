@@ -14,7 +14,7 @@ export default class Group extends PureComponent {
             onPress={() => handlePress(group)}
             style={styles.tile}
           >
-            <Text>{group.name}</Text>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>{group.name}</Text>
             <Text>{`${group.lessons.length} Lessons`}</Text>
           </TouchableOpacity>
         ))}
@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
     width: width / 2,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5'
+    backgroundColor: '#fff'
   }
 })

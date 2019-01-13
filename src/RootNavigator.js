@@ -26,9 +26,12 @@ const DrawerStack = createDrawerNavigator({
         >
           <Feather style={{ fontSize: 28 }} name='menu'/>
         </TouchableOpacity>
-        <Text>Bible Hebrew</Text>
+        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Bible Hebrew</Text>
       </View>
-    )
+    ),
+    headerStyle: {
+      backgroundColor: '#f2f2f2'
+    }
   }),
   contentComponent: ({ navigation }) => {
     return <DrawerContent navigation={navigation} />

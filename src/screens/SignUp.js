@@ -11,9 +11,12 @@ class SignUp extends PureComponent {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: (
       <View style={styles.headerContainer}>
-        <Text>Bible Hebrew</Text>
+        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Bible Hebrew</Text>
       </View>
-    )
+    ),
+    headerStyle: {
+      backgroundColor: '#f2f2f2'
+    }
   })
   render () {
     return (
