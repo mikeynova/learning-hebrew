@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View, Text, Button, AsyncStorage, StyleSheet, TouchableOpacity, Dimensions, SafeAreaView, Image } from 'react-native'
-import { Query } from 'react-apollo'
+import { Query, compose, graphql } from 'react-apollo'
 import { Audio } from 'expo'
 import { Feather } from '@expo/vector-icons'
 import gql from "graphql-tag"
@@ -17,10 +17,15 @@ class Lesson extends PureComponent {
   constructor (props) {
     super(props)
     this.playbackInstance = null
+    this.state = {
+      token: ''
+    }
   }
 
-  componentDidMount () {
+  async componentDidMount () {
     this._loadNewPlaybackInstance(false)
+    const token = await AsyncStorage.getItem('userToken')
+    this.setState({ token })
   }
 
   async _loadNewPlaybackInstance(playing) {
@@ -55,6 +60,8 @@ class Lesson extends PureComponent {
   }
 
   handleEndLesson = () => {
+    const { lesson } = this.props.navigation.state.params
+    this.props.completeLesson(this.state.token, lesson.id)
     this.props.navigation.navigate('Groups')
   }
 
@@ -159,4 +166,21 @@ const PageQuery = gql`
   }
 `
 
-export default Lesson
+const CompleteLessonMutation = gql`
+  mutation CompleteLessonMutation($token: String!, $lessonId: String!) {
+    completeLesson(token: $token, lessonId: $lessonId) {
+      id
+      completedLessons
+    }
+  }
+`
+
+const LessonWrapper = compose(
+  graphql(CompleteLessonMutation, {
+    props: ({ mutate }) => ({
+      completeLesson: (token, lessonId,) => mutate({ variables: { token, lessonId } })
+    })
+  })
+)(Lesson)
+
+export default LessonWrapper
