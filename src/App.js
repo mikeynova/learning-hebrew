@@ -9,8 +9,7 @@ import config from './lib/config'
 
 import RootNavigator from './RootNavigator'
 const httpLink = createHttpLink({
-  // uri: config.endpoint,
-  uri: 'http://localhost:4000/'
+  uri: config.endpoint
 })
 
 const client = new ApolloClient({
